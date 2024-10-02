@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <script>
+            // readystate가 변경될 때마다 onReadyStateChange() 함수가 호출됨
+            function onReadyStateChange(event) {
+                if (ajaxRequest.readyState === XMLHttpRequest.DONE) { // DONE은 값 4와 같음, XHR 객체의 AJAX 요청과 응답이 모두 완료된 상태임
+                    if (ajaxRequest.status === 200) {
+                        console.log(ajaxRequest.responseText);
+                    } else {
+                        console.error('request failed');
+                    }
+                }
+            }
+
+            /*
+            - AJAX 비동기 요청 클라이언트 -
+            XHR(XMLHttpRequest)을 사용한 HTTP 요청
+            AJAX 요청을 위해서는 XHR을 사용해야 한다.
+             */
+            const ajaxRequest = new XMLHttpRequest(); // 자바스크립트에서 함수를 변수처럼 다룰 수 있다.
+
+            ajaxRequest.onreadystatechange = onReadyStateChange; // ajaxRequest 의 readystate가 변경될 때 호출되도록 이벤트 핸들러로 등록됨
+            ajaxRequest.open('GET', '/get-with-no-parameter');
+            ajaxRequest.send();
+        </script>
+    </body>
+</html>
