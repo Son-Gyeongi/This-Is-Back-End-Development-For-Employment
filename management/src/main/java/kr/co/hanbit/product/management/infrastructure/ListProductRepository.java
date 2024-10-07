@@ -70,4 +70,10 @@ public class ListProductRepository {
         products.set(indexToModify, product); // index를 기준으로 수정할 Product가 선택될 때 스레드 세이프하지 않은 상황이 발생
         return product;
     }
+
+    // 상품 삭제하기
+    public void delete(Long id) {
+        Product product = this.findById(id);
+        products.remove(product);
+    }
 }

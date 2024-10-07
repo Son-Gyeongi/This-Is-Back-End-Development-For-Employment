@@ -73,4 +73,9 @@ public class SimpleProductService {
         ProductDto updatedProductDto = modelMapper.map(updatedProduct, ProductDto.class);
         return updatedProductDto;
     }
+
+    // 상품 삭제하기
+    public void delete(Long id) {
+        listProductRepository.delete(id);
+    }
 }

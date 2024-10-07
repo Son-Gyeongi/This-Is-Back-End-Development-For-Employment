@@ -74,4 +74,13 @@ public class ProductController {
         productDto.setId(id); // 클라이언트가 요청 바디로 id를 넣어 주지 않을 경우, id가 있어야 상품 수정이 정상적으로 이루어짐
         return simpleProductService.update(productDto);
     }
+
+    /*
+    상품 삭제하기
+    요구사항 : 상품 번호를 기준으로 특정 상품을 제거할 수 있어야 한다.
+     */
+    @RequestMapping(value = "/products/{id}", method = RequestMethod.DELETE)
+    public void deleteProduct(@PathVariable Long id) {
+        simpleProductService.delete(id);
+    }
 }
