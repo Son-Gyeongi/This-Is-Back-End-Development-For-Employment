@@ -57,4 +57,17 @@ public class ListProductRepository {
                 .filter(product -> product.containsName(name))
                 .toList();
     }
+
+    // 상품 수정하기 - 레포지토리에서 Product를 통째로 바꿔 버리는 코드
+    public Product update(Product product) {
+        /*
+        리스트의 indexOf 메서드는 리스트의 요소 중 매개변수로 받은 인스턴스와 동일한 인스턴스의 index 를 반환한다.
+        여기서 '동일하다' 라고 판단하는 기준은 해당 요소의 equals 메서드이다.
+        엄밀히 말하면 '동등한 인스턴스'를 찾게 되는 것이다. (동등성 - 객체의 내용이 같은지 비교, 동일성 - 객체의 메모리 위치가 같은지 비교)
+        따라서 Product 의 equals 를 오버라이딩해 줘야 한다. - id 값만 같다면 같은 Product 로 인식한다고 가정
+         */
+        Integer indexToModify = products.indexOf(product);
+        products.set(indexToModify, product);
+        return product;
+    }
 }

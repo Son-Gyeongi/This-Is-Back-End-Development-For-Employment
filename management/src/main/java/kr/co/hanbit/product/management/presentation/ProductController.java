@@ -15,7 +15,8 @@ public class ProductController {
 
     private SimpleProductService simpleProductService;
 
-    @Autowired // 생성자 주입, 의존성 주입 받음
+    @Autowired
+        // 생성자 주입, 의존성 주입 받음
     ProductController(SimpleProductService simpleProductService) {
         this.simpleProductService = simpleProductService;
     }
@@ -67,4 +68,10 @@ public class ProductController {
     상품 수정하기
     요구사항 : 상품 번호를 기준으로 상품 번호를 제외한 나머지 정보를 수정할 수 있어야 한다.
      */
+    @RequestMapping(value = "/products/{id}", method = RequestMethod.PUT)
+    public ProductDto updateProduct(@PathVariable Long id,
+                                    @RequestBody ProductDto productDto) {
+        productDto.setId(id); // 클라이언트가 요청 바디로 id를 넣어 주지 않을 경우, id가 있어야 상품 수정이 정상적으로 이루어짐
+        return simpleProductService.update(productDto);
+    }
 }
