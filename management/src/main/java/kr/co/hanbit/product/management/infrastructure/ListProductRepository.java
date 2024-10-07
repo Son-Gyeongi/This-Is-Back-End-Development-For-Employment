@@ -20,9 +20,14 @@ public class ListProductRepository {
     - 그 떄 많이 사용한다.
      */
     private List<Product> products = new CopyOnWriteArrayList<>();
-    
-    // CopyOnWriteArrayList 와 마찬가지로 스레드 안전성을 가지는 클래스, Long 타입의 값을 안전하게 다룰 수 있다.
-    // 상품 번호를 1부터 1씩 증가한다는 요구사항에 따라 1로 초기화
+
+    /*
+    CopyOnWriteArrayList 와 마찬가지로 스레드 안전성을 가지는 클래스, Long 타입의 값을 안전하게 다룰 수 있다.
+    상품 번호를 1부터 1씩 증가한다는 요구사항에 따라 1로 초기화
+
+    요구사항 : 상품 번호는 1부터 시작하여 상품이 추가될 때마다 1씩 증가한다.
+    동일한 상품 번호를 가지는 상품은 존재할 수 없다.
+     */
     private AtomicLong sequence = new AtomicLong(1L);
 
     // 상품 추가
