@@ -45,4 +45,11 @@ public class ListProductRepository {
     public List<Product> findAll() {
         return products;
     }
+
+    // 상품 이름에 포함된 문자열로 검색
+    public List<Product> findByNameContaining(String name) {
+        return products.stream()
+                .filter(product -> product.containsName(name))
+                .toList();
+    }
 }

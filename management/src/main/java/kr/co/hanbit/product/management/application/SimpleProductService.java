@@ -55,4 +55,14 @@ public class SimpleProductService {
                 .toList();
         return productDtos;
     }
+
+    // 상품 이름에 포함된 문자열로 검색
+    public List<ProductDto> findByNameContaining(String name) {
+        List<Product> products = listProductRepository.findByNameContaining(name);
+        // Product 리스트를 ProductDto 리스트로 변환
+        List<ProductDto> productDtos = products.stream()
+                .map(product -> modelMapper.map(product, ProductDto.class))
+                .toList();
+        return productDtos;
+    }
 }
