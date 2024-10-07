@@ -25,10 +25,19 @@ public class ListProductRepository {
     // 상품 번호를 1부터 1씩 증가한다는 요구사항에 따라 1로 초기화
     private AtomicLong sequence = new AtomicLong(1L);
 
+    // 상품 추가
     public Product add(Product product) {
         product.setId(sequence.getAndAdd(1L)); // getAndAdd() : 값을 가져온 후 1씩 증가하는 연산
         
         products.add(product);
         return product;
+    }
+
+    // 상품 한 개 조회
+    public Product findById(Long id) {
+        return products.stream()
+                .filter(product -> product.sameId(id))
+                .findFirst()
+                .orElseThrow();
     }
 }

@@ -17,6 +17,7 @@ public class SimpleProductService {
         this.modelMapper = modelMapper;
     }
 
+    // 상품 추가
     public ProductDto add(ProductDto productDto) { // DTO는 표현 계층부터 응용 계층까지 역할
         // 1. ProductDto 를 Product로 변환하는 코드
         /*
@@ -34,5 +35,12 @@ public class SimpleProductService {
 
         // 4. DTO 를 반환하는 코드
         return savedProductDto;
+    }
+
+    // 상품 한 개 조회
+    public ProductDto findById(Long id) {
+        Product product = listProductRepository.findById(id);
+        ProductDto productDto = modelMapper.map(product, ProductDto.class);
+        return productDto;
     }
 }
