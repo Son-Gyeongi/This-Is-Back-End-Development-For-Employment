@@ -6,6 +6,8 @@ import kr.co.hanbit.product.management.presentation.ProductDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service // 빈으로 등록
 public class SimpleProductService {
 
@@ -42,5 +44,15 @@ public class SimpleProductService {
         Product product = listProductRepository.findById(id);
         ProductDto productDto = modelMapper.map(product, ProductDto.class);
         return productDto;
+    }
+
+    // 전체 상품 목록 조회
+    public List<ProductDto> findAll() {
+        List<Product> products = listProductRepository.findAll();
+        // Product 리스트를 ProductDto 리스트로 변환
+        List<ProductDto> productDtos = products.stream()
+                .map(product -> modelMapper.map(product, ProductDto.class))
+                .toList();
+        return productDtos;
     }
 }

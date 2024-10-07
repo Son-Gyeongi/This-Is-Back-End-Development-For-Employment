@@ -4,6 +4,8 @@ import kr.co.hanbit.product.management.application.SimpleProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class ProductController {
 
@@ -26,5 +28,11 @@ public class ProductController {
     @RequestMapping(value = "/products/{id}", method = RequestMethod.GET)
     public ProductDto findProductById(@PathVariable Long id) {
         return simpleProductService.findById(id);
+    }
+
+    // 전체 상품 목록 조회
+    @RequestMapping(value = "/products", method = RequestMethod.GET)
+    public List<ProductDto> findAllProduct() {
+        return simpleProductService.findAll();
     }
 }
