@@ -67,7 +67,7 @@ public class ListProductRepository {
         따라서 Product 의 equals 를 오버라이딩해 줘야 한다. - id 값만 같다면 같은 Product 로 인식한다고 가정
          */
         Integer indexToModify = products.indexOf(product);
-        products.set(indexToModify, product);
+        products.set(indexToModify, product); // index를 기준으로 수정할 Product가 선택될 때 스레드 세이프하지 않은 상황이 발생
         return product;
     }
 }
