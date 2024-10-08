@@ -1,5 +1,6 @@
 package kr.co.hanbit.product.management.presentation;
 
+import jakarta.validation.Valid;
 import kr.co.hanbit.product.management.application.SimpleProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +27,7 @@ public class ProductController {
     요구사항 : 단건으로 하나씩 상품 추가할 수 있어야 한다.
      */
     @RequestMapping(value = "/products", method = RequestMethod.POST)
-    public ProductDto createProduct(@RequestBody ProductDto productDto) {
+    public ProductDto createProduct(@Valid @RequestBody ProductDto productDto) {
         // Product를 생성하고 리스트에 넣는 작업
         return simpleProductService.add(productDto);
     }
