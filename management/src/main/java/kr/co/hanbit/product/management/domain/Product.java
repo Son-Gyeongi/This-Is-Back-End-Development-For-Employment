@@ -1,5 +1,9 @@
 package kr.co.hanbit.product.management.domain;
 
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Size;
+
 import java.util.Objects;
 
 /*
@@ -7,8 +11,25 @@ import java.util.Objects;
  */
 public class Product {
     private Long id;
+
+    /*
+    요구사항 : 상품 이름은 1글자 이상 ~ 100글자 이하의 문자열로, 동일한 상품 이름을 가지는 상품이 존재할 수 없다.
+     */
+    @Size(min = 1, max = 100) // 도메인 지식은 도메인 객체 내에 코드 작성
     private String name;
+
+    /*
+    요구사항 : 가격은 0원 이상 ~ 1,000,000원 이하의 값을 가질 수 있다.
+     */
+    @Max(1_000_000)
+    @Min(0)
     private Integer price;
+
+    /*
+    요구사항 : 재고 수량은 0개 이상 ~ 9,999개 이하의 값을 가질 수 있다.
+     */
+    @Max(9_999)
+    @Min(0)
     private Integer amount;
 
     public void setId(Long id) {

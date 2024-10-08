@@ -4,6 +4,7 @@ import kr.co.hanbit.product.management.domain.Product;
 import kr.co.hanbit.product.management.infrastructure.ListProductRepository;
 import kr.co.hanbit.product.management.presentation.ProductDto;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,10 +14,14 @@ public class SimpleProductService {
 
     private ListProductRepository listProductRepository;
     private ModelMapper modelMapper; // 의존성 주입 받아서 ModelMapper 사용
+    private ValidationService validationService; // 유효성 검사하는 코드 추가
 
-    SimpleProductService(ListProductRepository listProductRepository, ModelMapper modelMapper) {
+    @Autowired
+    SimpleProductService(ListProductRepository listProductRepository, ModelMapper modelMapper,
+                         ValidationService validationService) {
         this.listProductRepository = listProductRepository;
         this.modelMapper = modelMapper;
+        this.validationService = validationService;
     }
 
     // 상품 추가
@@ -28,6 +33,7 @@ public class SimpleProductService {
         - 그러면 필드 이름을 기준으로 동일한 필드 이름에 해당하는 값을 자동으로 복사하여 변환해 준다.
          */
         Product product = modelMapper.map(productDto, Product.class);
+        validationService.checkValid(product); // Product 에 붙인 Bean Validation 애너테이션 기준으로 유효성 검사
 
         // 2. 레포지토리를 호출하는 코드
         Product savedProduct = listProductRepository.add(product);
