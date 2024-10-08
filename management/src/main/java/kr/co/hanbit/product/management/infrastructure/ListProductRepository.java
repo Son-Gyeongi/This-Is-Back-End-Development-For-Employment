@@ -1,5 +1,6 @@
 package kr.co.hanbit.product.management.infrastructure;
 
+import kr.co.hanbit.product.management.domain.EntityNotFoundException;
 import kr.co.hanbit.product.management.domain.Product;
 import org.springframework.stereotype.Repository;
 
@@ -43,7 +44,7 @@ public class ListProductRepository {
         return products.stream()
                 .filter(product -> product.sameId(id))
                 .findFirst()
-                .orElseThrow();
+                .orElseThrow(() -> new EntityNotFoundException("Product 를 찾지 못했습니다.")); // Product 를 찾지 못한 상황을 예외 메시지로 지정
     }
 
     // 전체 상품 목록 조회

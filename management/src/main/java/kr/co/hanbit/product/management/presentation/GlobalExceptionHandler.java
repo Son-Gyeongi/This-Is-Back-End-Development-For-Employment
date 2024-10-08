@@ -3,6 +3,7 @@ package kr.co.hanbit.product.management.presentation;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Path;
+import kr.co.hanbit.product.management.domain.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -39,8 +41,6 @@ public class GlobalExceptionHandler {
             ConstraintViolationException ex
     ) {
         Set<ConstraintViolation<?>> constraintViolations = ex.getConstraintViolations();
-        System.out.println("constraintViolations = " + constraintViolations);
-        System.out.println();
         /*
         List<String> errors = constraintViolations.stream()
                 .map(
@@ -66,8 +66,6 @@ public class GlobalExceptionHandler {
     }
 
     private String extractField(Path path) {
-        System.out.println("path = " + path);
-        System.out.println();
         String[] splittedArray = path.toString().split("[.]"); // .을 기준으로 나눈다. - [.] 는 정규 표현식
         int lastIndex = splittedArray.length - 1;
         return splittedArray[lastIndex];
@@ -79,8 +77,6 @@ public class GlobalExceptionHandler {
             MethodArgumentNotValidException ex
     ) {
         List<FieldError> fieldErrors = ex.getBindingResult().getFieldErrors();
-        System.out.println("fieldErrors = " + fieldErrors);
-        System.out.println();
         List<String> errors = fieldErrors.stream()
                 .map(
                         fieldError ->
@@ -90,5 +86,22 @@ public class GlobalExceptionHandler {
 
         ErrorMessage errorMessage = new ErrorMessage(errors);
         return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
+    }
+
+    // EntityNotFoundException 예외 처리 핸들러 추가
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<ErrorMessage> handleEntityNotFoundException(
+            EntityNotFoundException ex
+    ) {
+        List<String> errors = new ArrayList<>();
+        errors.add(ex.getMessage());
+
+        ErrorMessage errorMessage = new ErrorMessage(errors);
+        return new ResponseEntity<>(errorMessage, HttpStatus.NOT_FOUND);
+        /*
+        404 Not Found 응답 상태 코드 사용한 이유
+        - URL 의 경로에 해당하는 자원(id, 식별자)을 찾지 못했다는 의미
+        - URL 경로에 존재하는 id 를 가진 Product 가 없기 때문에 404 Not Found 를 응답 상태 코드로 준다.
+         */
     }
 }
