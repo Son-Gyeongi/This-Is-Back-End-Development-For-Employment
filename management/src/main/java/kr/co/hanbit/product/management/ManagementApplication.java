@@ -2,9 +2,13 @@ package kr.co.hanbit.product.management;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.config.Configuration;
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+
+import javax.sql.DataSource;
+import java.sql.Connection;
 
 @SpringBootApplication
 public class ManagementApplication {
@@ -43,4 +47,19 @@ public class ManagementApplication {
         return modelMapper;
     }
 
+    /*
+    데이터베이스 접속 테스트
+    - ApplicationRunner 는 스프링 부트 애플리케이션이 시작한 직후 실행하려는 코드를 추가할 수 있는 의존성이다.
+    - ApplicationRunner 를 빈으로 등록하면서 람다 표현식 함수 내에 실행할 코드를 넣으면 된다.
+    - 매개변수로 받고 있는 DataSource 는 데이터베이스와의 연결을 담당하는 인터페이스로,
+        해당 인터페이스를 통해 데이터베이스와의 커넥션을 가져올 수 있다.
+        커넥션을 가져오는 행위가 성공한다면 애플리케이션과 데이터베이스가 연결에 성공했다는 의미
+     */
+    @Bean
+    public ApplicationRunner runner(DataSource dataSource) {
+        return args -> {
+            // 이 부분에 실행할 코드를 넣으면 된다.
+            Connection connection = dataSource.getConnection();
+        };
+    }
 }
