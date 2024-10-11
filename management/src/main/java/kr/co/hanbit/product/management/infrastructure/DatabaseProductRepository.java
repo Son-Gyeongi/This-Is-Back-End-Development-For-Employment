@@ -127,7 +127,16 @@ public class DatabaseProductRepository {
         return product;
     }
 
+    /*
+    id 를 기준으로 삭제될 상품을 지정
+     */
     public void delete(Long id) {
-        // do nothing
+        // MapSqlParameterSource 로 id 만 매핑
+        SqlParameterSource namedParameter = new MapSqlParameterSource("id", id);
+
+        namedParameterJdbcTemplate.update(
+                "DELETE FROM products WHERE id = :id",
+                namedParameter
+        );
     }
 }
