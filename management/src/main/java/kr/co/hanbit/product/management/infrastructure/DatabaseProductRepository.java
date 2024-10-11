@@ -24,6 +24,10 @@ public class DatabaseProductRepository {
     NamedParameterJdbcTemplate
     - SQL 쿼리를 보낼 때 물음표로 매개변수를 매핑하지 않고 매개변수의 이름을 통해 SQL 쿼리와 값을 매핑한다.
     - 매개변수 순서가 바뀌거나 매개변수의 수가 많은 경우에도 헷갈리지 않는다.
+    - 데이터베이스에 SQL 쿼리를 전송하기 위한 여러 가지 메서드 중 query(), queryForObject(), update() 가 가장 대표적이다.
+    - query(), queryForObject() 는 SQL 쿼리 전송 후 그 결과로 특정 클래스의 인스턴스를 받는다. - 코드상에서 Product 를 받을 수 있도록 코드를 작성했다.
+    - update() 는 int 값을 반환한다. UPDATE 로 실행된 SQL 쿼리로 영향을 받은 데이터의 수이다. - 만약 UPDATE SQL 쿼리로 10건의 데이터가 수정되었다면 10이라는 값이 반환될 것이다.
+        int 값을 통해 수정 및 삭제의 성공 여부를 알 수 있다. 만약 우리가 id로 특정 상품을 수정하거나 삭제했는데 반환값이 0이라면 수정이나 삭제에 실패했다는 예외를 던질 수 있다.
      */
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
