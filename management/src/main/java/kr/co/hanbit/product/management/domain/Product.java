@@ -44,8 +44,23 @@ public class Product {
         return amount;
     }
 
+    /*
+    BeanPropertyRowMapper 가 데이터베이스에서 가져온 데이터를 Product 인스턴스로 변환하는 과정에서 setter 가 필요함
+     */
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
+
+    public void setAmount(Integer amount) {
+        this.amount = amount;
     }
 
     public Boolean sameId(Long id) {
