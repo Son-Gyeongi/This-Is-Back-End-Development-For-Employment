@@ -32,6 +32,11 @@ public class Product {
     @Min(0)
     private Integer amount;
 
+    // BeanPropertySqlParameterSource 는 getter 를 통해 값을 매핑함 - Product 수정 시 id 를 가져오기 위해서 추가
+    public Long getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }

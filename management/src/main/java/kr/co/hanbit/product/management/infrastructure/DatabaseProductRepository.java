@@ -114,8 +114,17 @@ public class DatabaseProductRepository {
         return products;
     }
 
+    /*
+    id 로 상품을 찾고 수정하는 기능 추가하기
+    - 상품 번호(id)를 기준으로 수정할 상품을 찾고, 상품 번호를 제외한 나머지 정보를 수정하는 것을 말한다.
+     */
     public Product update(Product product) {
-        return null;
+        SqlParameterSource namedParameter = new BeanPropertySqlParameterSource(product);
+
+        namedParameterJdbcTemplate.update("UPDATE products SET name = :name, price = :price, amount = :amount WHERE id = :id",
+                namedParameter);
+
+        return product;
     }
 
     public void delete(Long id) {
