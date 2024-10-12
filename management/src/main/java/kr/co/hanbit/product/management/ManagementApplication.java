@@ -6,6 +6,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -56,6 +57,7 @@ public class ManagementApplication {
         커넥션을 가져오는 행위가 성공한다면 애플리케이션과 데이터베이스가 연결에 성공했다는 의미
      */
     @Bean
+    @Profile("prod") // production 운영 환경일 때 실행
     public ApplicationRunner runner(DataSource dataSource) {
         return args -> {
             // 이 부분에 실행할 코드를 넣으면 된다.

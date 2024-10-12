@@ -1,7 +1,9 @@
 package kr.co.hanbit.product.management.infrastructure;
 
 import kr.co.hanbit.product.management.domain.Product;
+import kr.co.hanbit.product.management.domain.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -15,7 +17,8 @@ import java.util.List;
 
 // ListProductRepository 가 하는 일을 모두 할 수 있어야 한다.
 @Repository
-public class DatabaseProductRepository {
+@Profile("prod") // production 운영 환경일 때 실행
+public class DatabaseProductRepository implements ProductRepository {
 
     // 의존성 주입
     // 데이터베이스에 SQL 을 전송하려면 JdbcTemplate 이라는 의존성을 사용하면 된다.
