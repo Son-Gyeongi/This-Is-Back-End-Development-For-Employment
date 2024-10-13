@@ -1,9 +1,11 @@
 package kr.co.hanbit.product.management.infrastructure;
 
+import kr.co.hanbit.product.management.domain.EntityNotFoundException;
 import kr.co.hanbit.product.management.domain.Product;
 import kr.co.hanbit.product.management.domain.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -86,12 +88,19 @@ public class DatabaseProductRepository implements ProductRepository {
         1. Product 의 인자가 없는 생성자로 Product 인스턴스를 생성한다. -> 인자가 없는 생성자가 반드시 필요하다.
         2. 생성된 Product 인스턴스의 setter 로 필드를 초기화한다. -> setter 가 반드시 필요하다.
          */
-        // 하나의 Product 를 조회 시 queryForObject 사용
-        Product product = namedParameterJdbcTemplate.queryForObject(
-                "SELECT id, name, price, amount FROM products WHERE id = :id",
-                namedParameter,
-                new BeanPropertyRowMapper<>(Product.class)
-        ); // BeanPropertyRowMapper 는 데이터베이스에서 조회된 데이터를 Product.class 로 변환
+        Product product = null;
+
+        try {
+            // 하나의 Product 를 조회 시 queryForObject 사용
+            product = namedParameterJdbcTemplate.queryForObject(
+                    "SELECT id, name, price, amount FROM products WHERE id = :id",
+                    namedParameter,
+                    new BeanPropertyRowMapper<>(Product.class)
+            ); // BeanPropertyRowMapper 는 데이터베이스에서 조회된 데이터를 Product.class 로 변환
+        } catch (EmptyResultDataAccessException exception) {
+            // EmptyResultDataAccessException 예외를 잡아서 EntityNotFoundException 으로 변경
+            throw new EntityNotFoundException("Product 를 찾지 못했습니다.");
+        }
 
         return product;
     }

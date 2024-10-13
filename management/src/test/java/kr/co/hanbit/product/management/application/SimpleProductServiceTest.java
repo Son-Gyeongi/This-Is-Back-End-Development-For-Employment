@@ -33,7 +33,7 @@ import static org.junit.jupiter.api.Assertions.*;
 - 코드에서는 test Profile 로 실행되는 것이므로 @Profile("test")가 붙어 있는 클래스가 빈으로 등록된다.
  */
 @SpringBootTest
-@ActiveProfiles("test")
+@ActiveProfiles("prod")
 class SimpleProductServiceTest {
 
     /*
@@ -88,4 +88,14 @@ class SimpleProductServiceTest {
             simpleProductService.findById(notExistId);
         });
     }
+    /*
+    EntityNotFoundException 예외가 던져지지 않았을 때 테스트에 실패하는 것까지 확인하기
+
+    - test ListProductRepository 의 경우 findById() 에서 Product 를 찾지 못하면 EntityNotFoundException 예외가 던져지지만
+    - prod DatabaseProductRepository 의 경우 findById() 에서 EntityNotFoundException 예외가 발생하지 않는다. (EmptyResultDataAccessException 예외 발생)
+
+    해결 : EmptyResultDataAccessException 예외를 잡아서 EntityNotFoundException 으로 변경하는 방법을 알아보자.
+    -> DatabaseProductRepository 클래스에서 findById() 에 try-catch 를 사용했다.
+    -> try-catch 를 많이 사용하면 코드 읽기가 어려워지므로 try-catch 는 가급적 사용하지 않는 편이 좋다.
+     */
 }
