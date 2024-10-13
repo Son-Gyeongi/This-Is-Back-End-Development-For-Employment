@@ -65,10 +65,18 @@ class SimpleProductServiceTest {
         ProductDto foundProductDto = simpleProductService.findById(savedProductId);
 
         // 테스트 성공/실패 자동 체크
-        assertTrue(savedProductDto.getId() == foundProductDto.getId());
-        assertTrue(savedProductDto.getName() == foundProductDto.getName());
-        assertTrue(savedProductDto.getPrice() == foundProductDto.getPrice());
-        assertTrue(savedProductDto.getAmount() == foundProductDto.getAmount());
+        assertTrue(savedProductDto.getId().equals(foundProductDto.getId()));
+        /*
+        name 의 타입은 String 이다. 두 인스턴스가 동일한지를 비교하고 싶은 것이 아니고 두 값을 비교해야 한다.
+        동일성 - 객체의 메모리 위치가 같은지 비교
+        동등성 - 객체의 내용이 같은지 비교
+
+        ** 동일성을 비교하는 코드에서 동등성을 비교하는 코드로 바꿔 주기 **
+        -> 동등성 비교를 진행하려면 equals 메서드를 사용하면 된다.
+         */
+        assertTrue(savedProductDto.getName().equals(foundProductDto.getName()));
+        assertTrue(savedProductDto.getPrice().equals(foundProductDto.getPrice()));
+        assertTrue(savedProductDto.getAmount().equals(foundProductDto.getAmount()));
     }
 
     /*
