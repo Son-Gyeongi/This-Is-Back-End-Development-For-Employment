@@ -1,5 +1,6 @@
 package kr.co.hanbit.product.management.application;
 
+import kr.co.hanbit.product.management.domain.EntityNotFoundException;
 import kr.co.hanbit.product.management.presentation.ProductDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -68,5 +69,23 @@ class SimpleProductServiceTest {
         assertTrue(savedProductDto.getName() == foundProductDto.getName());
         assertTrue(savedProductDto.getPrice() == foundProductDto.getPrice());
         assertTrue(savedProductDto.getAmount() == foundProductDto.getAmount());
+    }
+
+    /*
+    예외 발생에 대한 테스트 코드 추가하기
+    테스트 코드에서 반드시 포함되어야 하는 코드 중 하나는 예외 발생에 관한 것이다.
+
+    상품 관리 애플리케이션을 만들면서 Product 조회에 실패했을 때
+    발생하는 EntityNotFoundException 예외 발생에 대한 테스트 코드를 추가해 보자.
+     */
+    @Test
+    @DisplayName("존재하지 않는 상품 id로 조회하면 EntityNotFoundException이 발생해야한다.")
+    void findProductNotExistIdTest() {
+        Long notExistId = -1L;
+
+        // 예외 발생 테스트 assertThrows - 인자 2개 (기대하는 예외, 예외가 발생해야 할 코드를 넣을 수 있는 람다 표현식)
+        assertThrows(EntityNotFoundException.class, () -> {
+            simpleProductService.findById(notExistId);
+        });
     }
 }
