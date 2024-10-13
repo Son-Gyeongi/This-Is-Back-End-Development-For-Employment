@@ -39,4 +39,23 @@ public class ProductDto {
     public Integer getAmount() {
         return amount;
     }
+
+    /*
+    ProductDto(String name, Integer price, Integer amount) 생성자 추가 후 생긴 에러
+    
+    에러
+    Failed to instantiate instance of destination kr.co.hanbit.product.management.presentation.ProductDto. Ensure that kr.co.hanbit.product.management.presentation.ProductDto has a non-private no-argument constructor.
+    Caused by: java.lang.NoSuchMethodException: kr.co.hanbit.product.management.presentation.ProductDto.<init>()
+    
+    해결 : 빈 생성자 추가 
+     */
+    public ProductDto() {
+    }
+
+    // productAddAndFindByIdTest 테스트를 위해서 생성자 추가
+    public ProductDto(String name, Integer price, Integer amount) {
+        this.name = name;
+        this.price = price;
+        this.amount = amount;
+    }
 }
