@@ -7,8 +7,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * 우리는 코드가 의도하지 않은 방향으로 달라지는 것을 알아채기 위해 테스트 코드를 돌려 봐야 한다.
@@ -51,11 +53,18 @@ class SimpleProductServiceTest {
     @DisplayName
     - 해당 테스트 코드의 이름을 지정할 수 있다.
 
+    @Transactional
+    - 테스트 코드에서 실행된 데이터가 데이터베이스에 반영되지 않도록 만든다.
+    - 트랜잭션 - 작업이 '모두 실행되거나 모두 실행되지 않은 상태로 만드는 것'을 말한다.
+    - @Test 애너테이션이 붙어 있는 테스트 코드에 @Transactional 을 함께 사용하면,
+        해당 테스트 코드는 테스트 코드 실행 후 '커밋'되는 것이 아니라 자동으로 '롤백'된다.
+
     productAddAndFindByIdTest
     메서드 이름을 영어로 지었지만, 실무에서는 한글로 작성하는 경우도 많다.
      */
     @Test
     @DisplayName("상품을 추가한 후 id로 조회하면 해당 상품이 조회되어야 한다.")
+    @Transactional
     void productAddAndFindByIdTest() {
         ProductDto productDto = new ProductDto("연필", 300, 20);
 
