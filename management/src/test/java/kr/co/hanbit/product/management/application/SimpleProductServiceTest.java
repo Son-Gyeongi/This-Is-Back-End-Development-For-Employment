@@ -63,9 +63,10 @@ class SimpleProductServiceTest {
 
         ProductDto foundProductDto = simpleProductService.findById(savedProductId);
 
-        System.out.println(savedProductDto.getId() == foundProductDto.getId());
-        System.out.println(savedProductDto.getName() == foundProductDto.getName());
-        System.out.println(savedProductDto.getPrice() == foundProductDto.getPrice());
-        System.out.println(savedProductDto.getAmount() == foundProductDto.getAmount());
+        // 테스트 성공/실패 자동 체크
+        assertTrue(savedProductDto.getId() == foundProductDto.getId());
+        assertTrue(savedProductDto.getName() == foundProductDto.getName());
+        assertTrue(savedProductDto.getPrice() == foundProductDto.getPrice());
+        assertTrue(savedProductDto.getAmount() == foundProductDto.getAmount());
     }
 }
