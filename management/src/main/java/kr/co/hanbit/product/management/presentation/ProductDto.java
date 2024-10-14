@@ -60,31 +60,38 @@ public class ProductDto {
         this.amount = amount;
     }
 
+    // 모든 필드를 파라미터로 받는 생성자 추가
+    public ProductDto(Long id, String name, Integer price, Integer amount) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.amount = amount;
+    }
+
     /*
-    ModelMapper 와 같은 동작을 하는 코드 추가하기
+        ModelMapper 와 같은 동작을 하는 코드 추가하기
 
-    toEntity 는 ProductDto 를 Product 로 변환하고,
-    toDto 는 반대로 Product 를 ProductDto 로 변환한다.
-     */
+        toEntity 는 ProductDto 를 Product 로 변환하고,
+        toDto 는 반대로 Product 를 ProductDto 로 변환한다.
+         */
     public static Product toEntity(ProductDto productDto) {
-        Product product = new Product();
-
-        product.setId(productDto.getId());
-        product.setName(productDto.getName());
-        product.setPrice(productDto.getPrice());
-        product.setAmount(productDto.getAmount());
+        Product product = new Product(
+                productDto.getId(),
+                productDto.getName(),
+                productDto.getPrice(),
+                productDto.getAmount()
+        );
 
         return product;
     }
 
     public static ProductDto toDto(Product product) {
         ProductDto productDto = new ProductDto(
+                product.getId(),
                 product.getName(),
                 product.getPrice(),
                 product.getAmount()
         );
-
-        productDto.setId(product.getId());
 
         return productDto;
     }

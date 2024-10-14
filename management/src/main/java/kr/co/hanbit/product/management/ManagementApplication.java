@@ -1,7 +1,7 @@
 package kr.co.hanbit.product.management;
 
-import org.modelmapper.ModelMapper;
-import org.modelmapper.config.Configuration;
+// import org.modelmapper.ModelMapper;
+// import org.modelmapper.config.Configuration;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -27,26 +27,26 @@ public class ManagementApplication {
      *     - main 함수가 있는 Application 클래스에 다음과 같은 코드를 추가한다.
      *       - ModelMapper 클래스의 인스턴스를 생성한 후 빈으로 등록하는 코드이다.
      */
-    @Bean
-    public ModelMapper modelMapper() {
-        /*
-        // return new ModelMapper();
-        ModelMapper 를 생성할 때는 바꿔 줘야 할 것이 하나 있다.
-        ModelMapper 의 기본 설정은 '매개 변수가 없는 생성자로 인스턴스를 생성한 후 setter 로 값을 초기화하여 변환'하는 것이다.
-        setter 없이도 Product 와 ProductDto 를 변환 가능하도록 하려면 다음과 같은 설정으로 ModelMapper 빈을 생성해야 한다.
-        이 설정은 ModelMapper 가 private 인 필드에 리플렉션 API 로 접근하여 변환할 수 있도록 만들어 준다.
-
-        ** 리플렉션 API
-        구체적인 클래스 타입을 알지 못해도 그 클래스의 정보(메서드, 타입, 변수 등등)에 접근할 수 있게 해주는 자바 API
-        참고 https://tecoble.techcourse.co.kr/post/2020-07-16-reflection-api/
-         */
-
-        ModelMapper modelMapper = new ModelMapper();
-        modelMapper.getConfiguration()
-                .setFieldAccessLevel(Configuration.AccessLevel.PRIVATE)
-                .setFieldMatchingEnabled(true);
-        return modelMapper;
-    }
+//    @Bean
+//    public ModelMapper modelMapper() {
+//        /*
+//        // return new ModelMapper();
+//        ModelMapper 를 생성할 때는 바꿔 줘야 할 것이 하나 있다.
+//        ModelMapper 의 기본 설정은 '매개 변수가 없는 생성자로 인스턴스를 생성한 후 setter 로 값을 초기화하여 변환'하는 것이다.
+//        setter 없이도 Product 와 ProductDto 를 변환 가능하도록 하려면 다음과 같은 설정으로 ModelMapper 빈을 생성해야 한다.
+//        이 설정은 ModelMapper 가 private 인 필드에 리플렉션 API 로 접근하여 변환할 수 있도록 만들어 준다.
+//
+//        ** 리플렉션 API
+//        구체적인 클래스 타입을 알지 못해도 그 클래스의 정보(메서드, 타입, 변수 등등)에 접근할 수 있게 해주는 자바 API
+//        참고 https://tecoble.techcourse.co.kr/post/2020-07-16-reflection-api/
+//         */
+//
+//        ModelMapper modelMapper = new ModelMapper();
+//        modelMapper.getConfiguration()
+//                .setFieldAccessLevel(Configuration.AccessLevel.PRIVATE)
+//                .setFieldMatchingEnabled(true);
+//        return modelMapper;
+//    }
 
     /*
     데이터베이스 접속 테스트

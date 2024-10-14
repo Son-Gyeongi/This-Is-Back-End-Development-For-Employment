@@ -32,6 +32,17 @@ public class Product {
     @Min(0)
     private Integer amount;
 
+    public Product() {
+    }
+
+    // 모든 필드를 파라미터로 받는 생성자 추가
+    public Product(Long id, String name, Integer price, Integer amount) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.amount = amount;
+    }
+
     // BeanPropertySqlParameterSource 는 getter 를 통해 값을 매핑함 - Product 수정 시 id 를 가져오기 위해서 추가
     public Long getId() {
         return id;
