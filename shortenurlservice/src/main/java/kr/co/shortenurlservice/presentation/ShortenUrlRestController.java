@@ -26,7 +26,9 @@ public class ShortenUrlRestController {
 
     // 단축 URL 생성 API
     @RequestMapping(value = "/shortenUrl", method = RequestMethod.POST)
-    public ResponseEntity<ShortenUrlCreateResponseDto> createShortenUrl(@Valid @RequestBody ShortenUrlCreateRequestDto shortenUrlCreateRequestDto) {
+    public ResponseEntity<ShortenUrlCreateResponseDto> createShortenUrl(
+            @Valid @RequestBody ShortenUrlCreateRequestDto shortenUrlCreateRequestDto
+    ) {
         ShortenUrlCreateResponseDto shortenUrlCreateResponseDto =
                 simpleShortenUrlService.generateShortenUrl(shortenUrlCreateRequestDto);
         return ResponseEntity.ok().body(shortenUrlCreateResponseDto);
@@ -39,8 +41,16 @@ public class ShortenUrlRestController {
     }
 
     // 단축 URL 정보 조회 API
+    /*
+    단축 URL 정보 조회 기능 추가
+    과제 테스트 - 8. Postman 으로 테스트하면서 기능 개발
+     */
     @RequestMapping(value = "/shortenUrl/{shortenUrlKey}", method = RequestMethod.GET)
     public ResponseEntity<ShortenUrlInformationDto> getShortenUrlInformation(@PathVariable String shortenUrlKey) {
-        return ResponseEntity.ok().body(null);
+
+        ShortenUrlInformationDto shortenUrlInformationDto =
+                simpleShortenUrlService.getShortenUrlInformationByShortenUrlKey(shortenUrlKey);
+
+        return ResponseEntity.ok().body(shortenUrlInformationDto);
     }
 }
