@@ -10,6 +10,7 @@ public class ShortenUrlCreateResponseDto {
     private String originalUrl;
     private String shortenUrlKey;
 
+    // ShortenUrl 을 받는 생성자
     public ShortenUrlCreateResponseDto(ShortenUrl shortenUrl) {
         this.originalUrl = shortenUrl.getOriginalUrl();
         this.shortenUrlKey = shortenUrl.getShortenUrlKey();
