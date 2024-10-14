@@ -59,4 +59,11 @@ public class ShortenUrl {
 
         return shortenUrlKey.toString();
     }
+
+    /*
+    원본 URL 로 리다이렉트될 때마다 카운트가 증가된다.
+     */
+    public void increaseRedirectCount() {
+        this.redirectCount = this.redirectCount + 1;
+    }
 }

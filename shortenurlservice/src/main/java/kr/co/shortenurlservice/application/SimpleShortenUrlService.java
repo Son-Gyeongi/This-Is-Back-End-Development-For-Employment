@@ -64,4 +64,18 @@ public class SimpleShortenUrlService {
 
         return shortenUrlInformationDto;
     }
+
+    /*
+    단축 URL 리다이렉트 기능 추가
+     */
+    public String getOriginalUrlByShortenUrlKey(String shortenUrlKey) {
+        ShortenUrl shortenUrl = shortenUrlRepository.findShortenUrlByShortenUrlKey(shortenUrlKey);
+
+        shortenUrl.increaseRedirectCount();
+        shortenUrlRepository.saveShortenUrl(shortenUrl);
+
+        String originalUrl = shortenUrl.getOriginalUrl();
+
+        return originalUrl;
+    }
 }
