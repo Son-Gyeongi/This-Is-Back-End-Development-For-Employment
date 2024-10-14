@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -35,7 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 - 코드에서는 test Profile 로 실행되는 것이므로 @Profile("test")가 붙어 있는 클래스가 빈으로 등록된다.
  */
 @SpringBootTest
-@ActiveProfiles("prod")
+@ActiveProfiles("test")
 class SimpleProductServiceTest {
 
     /*
@@ -64,7 +63,7 @@ class SimpleProductServiceTest {
      */
     @Test
     @DisplayName("상품을 추가한 후 id로 조회하면 해당 상품이 조회되어야 한다.")
-    @Transactional
+//    @Transactional // 데이터베이스 같은 트랜잭션 처리를 위해 사용하는 애너테이션
     void productAddAndFindByIdTest() {
         ProductDto productDto = new ProductDto("연필", 300, 20);
 
