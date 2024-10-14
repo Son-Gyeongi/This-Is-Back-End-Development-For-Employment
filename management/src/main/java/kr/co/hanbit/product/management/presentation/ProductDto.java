@@ -1,6 +1,7 @@
 package kr.co.hanbit.product.management.presentation;
 
 import jakarta.validation.constraints.NotNull;
+import kr.co.hanbit.product.management.domain.Product;
 
 public class ProductDto {
     private Long id;
@@ -57,5 +58,34 @@ public class ProductDto {
         this.name = name;
         this.price = price;
         this.amount = amount;
+    }
+
+    /*
+    ModelMapper 와 같은 동작을 하는 코드 추가하기
+
+    toEntity 는 ProductDto 를 Product 로 변환하고,
+    toDto 는 반대로 Product 를 ProductDto 로 변환한다.
+     */
+    public static Product toEntity(ProductDto productDto) {
+        Product product = new Product();
+
+        product.setId(productDto.getId());
+        product.setName(productDto.getName());
+        product.setPrice(productDto.getPrice());
+        product.setAmount(productDto.getAmount());
+
+        return product;
+    }
+
+    public static ProductDto toDto(Product product) {
+        ProductDto productDto = new ProductDto(
+                product.getName(),
+                product.getPrice(),
+                product.getAmount()
+        );
+
+        productDto.setId(product.getId());
+
+        return productDto;
     }
 }
