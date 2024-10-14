@@ -34,6 +34,11 @@ public class SimpleProductServiceUnitTest {
     해당 의존성에 '목 객체(Mock Object)'를 주입한다는 의미
     목 객체는 주입하는 것만으로는 아무 기능을 하지 않는다.
     테스트 코드에서 목 객체가 어떤 메서드에 대해 어떤 동작을 할지는 직접 정의해야 한다.
+
+    단위 테스트를 통해 해당 인터페이스의 구현체가 없더라도 ProductRepository 역할을 하는 객체의 행동을 정의하여
+    테스트할 수 있다.
+    이처럼 단위 테스트는 테스트하려는 대상이 의존하고 있는 다른 요소가 존재하지 않더라도
+    테스트하려는 대상을 자유롭게 테스트할 수 있다.
      */
     @Mock
     private ProductRepository productRepository;
