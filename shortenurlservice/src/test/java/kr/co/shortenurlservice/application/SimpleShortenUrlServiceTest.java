@@ -36,4 +36,15 @@ class SimpleShortenUrlServiceTest {
 
         assertTrue(originalUrl.equals(expectedOriginalUrl));
     }
+
+    @Test
+    @DisplayName("존재하지 않는 단축 URL 을 조회하는 경우")
+    void findShortenUrlNotExistIdTest() {
+        String noExistShortenUrl = "JWmSFaLV";
+
+        // 예외 발생 테스트 assertThrows - 인자 2개 (기대하는 예외, 예외가 발생해야 할 코드를 넣을 수 있는 람다 표현식)
+        assertThrows(NotFoundShortenUrlException.class, () -> {
+            simpleShortenUrlService.getShortenUrlInformationByShortenUrlKey(noExistShortenUrl);
+        });
+    }
 }
