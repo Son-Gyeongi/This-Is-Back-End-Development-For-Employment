@@ -1,5 +1,6 @@
 package kr.co.shortenurlservice.application;
 
+import kr.co.shortenurlservice.domain.NotFoundShortenUrlException;
 import kr.co.shortenurlservice.domain.ShortenUrl;
 import kr.co.shortenurlservice.domain.ShortenUrlRepository;
 import kr.co.shortenurlservice.presentation.ShortenUrlCreateRequestDto;
@@ -60,6 +61,12 @@ public class SimpleShortenUrlService {
     public ShortenUrlInformationDto getShortenUrlInformationByShortenUrlKey(String shortenUrlKey) {
         ShortenUrl shortenUrl = shortenUrlRepository.findShortenUrlByShortenUrlKey(shortenUrlKey);
 
+        /*
+        조회된 단축 URL 이 없는 경우, 즉 ShortenURL 의 값이 null 인 경우에 NotFoundShortenUrlException 예외가 던져진다.
+         */
+        if (shortenUrl == null)
+            throw new NotFoundShortenUrlException();
+
         ShortenUrlInformationDto shortenUrlInformationDto = new ShortenUrlInformationDto(shortenUrl);
 
         return shortenUrlInformationDto;
@@ -70,6 +77,12 @@ public class SimpleShortenUrlService {
      */
     public String getOriginalUrlByShortenUrlKey(String shortenUrlKey) {
         ShortenUrl shortenUrl = shortenUrlRepository.findShortenUrlByShortenUrlKey(shortenUrlKey);
+
+        /*
+        조회된 단축 URL 이 없는 경우, 즉 ShortenURL 의 값이 null 인 경우에 NotFoundShortenUrlException 예외가 던져진다.
+         */
+        if (shortenUrl == null)
+            throw new NotFoundShortenUrlException();
 
         shortenUrl.increaseRedirectCount();
         shortenUrlRepository.saveShortenUrl(shortenUrl);
