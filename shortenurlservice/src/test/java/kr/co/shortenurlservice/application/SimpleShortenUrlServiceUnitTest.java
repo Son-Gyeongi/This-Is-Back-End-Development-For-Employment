@@ -34,7 +34,7 @@ class SimpleShortenUrlServiceUnitTest {
     LackOfShortenUrlKeyException 예외를 단위 테스트 하는 이유
     - 레포지토리가 하는 행위를 테스트 코드 내에서 임의로 지정해 주는 편이 테스트 코드 작성에 유리하기 때문
         -> 모킹을 해주는 것이 적절하다는 의미
-    */
+     */
     @Test
     @DisplayName("단축 URL 이 계속 중복되면 LackOfShortenUrlKeyException 예외가 발생해야한다.")
     void throwLackOfShortenUrlKeyExceptionTest() {
