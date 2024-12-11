@@ -4,6 +4,7 @@ import kr.co.shortenurlservice_practice.domain.ShortenUrl;
 import kr.co.shortenurlservice_practice.domain.ShortenUrlRepository;
 import kr.co.shortenurlservice_practice.presentation.dto.ShortenUrlCreateRequestDto;
 import kr.co.shortenurlservice_practice.presentation.dto.ShortenUrlCreateResponseDto;
+import kr.co.shortenurlservice_practice.presentation.dto.ShortenUrlInformationDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -32,5 +33,13 @@ public class SimpleShortenUrlService {
 
         ShortenUrlCreateResponseDto shortenUrlCreateResponseDto = new ShortenUrlCreateResponseDto(shortenUrl);
         return shortenUrlCreateResponseDto;
+    }
+
+    public ShortenUrlInformationDto getShortenUrlInformationByShortenUrlKey(String shortenUrlKey) {
+        ShortenUrl shortenUrl = shortenUrlRepository.findShortenUrlByShortenUrlKey(shortenUrlKey);
+
+        ShortenUrlInformationDto shortenUrlInformationDto = new ShortenUrlInformationDto(shortenUrl);
+
+        return shortenUrlInformationDto;
     }
 }

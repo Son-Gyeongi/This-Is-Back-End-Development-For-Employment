@@ -38,6 +38,8 @@ public class ShortenUrlRestController {
     public ResponseEntity<ShortenUrlInformationDto> getShortenUrlInformation(
             @PathVariable String shortenUrlKey
     ) {
-        return ResponseEntity.ok().body(null);
+        ShortenUrlInformationDto shortenUrlInformationDto
+                = simpleShortenUrlService.getShortenUrlInformationByShortenUrlKey(shortenUrlKey);
+        return ResponseEntity.ok().body(shortenUrlInformationDto);
     }
 }
