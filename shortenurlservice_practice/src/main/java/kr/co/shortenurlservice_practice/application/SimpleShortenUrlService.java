@@ -13,7 +13,8 @@ import org.springframework.stereotype.Service;
 public class SimpleShortenUrlService {
 
     private final ShortenUrlRepository shortenUrlRepository;
-    
+
+    // 단축 URL 생성
     public ShortenUrlCreateResponseDto generateShortenUrl(
             ShortenUrlCreateRequestDto shortenUrlCreateRequestDto
     ) {
@@ -35,11 +36,24 @@ public class SimpleShortenUrlService {
         return shortenUrlCreateResponseDto;
     }
 
+    // 단축 URL 정보 조회
     public ShortenUrlInformationDto getShortenUrlInformationByShortenUrlKey(String shortenUrlKey) {
         ShortenUrl shortenUrl = shortenUrlRepository.findShortenUrlByShortenUrlKey(shortenUrlKey);
 
         ShortenUrlInformationDto shortenUrlInformationDto = new ShortenUrlInformationDto(shortenUrl);
 
         return shortenUrlInformationDto;
+    }
+
+    // 단축 URL 리다이렉트
+    public String getOriginalUrlByShortenUrlKey(String shortenUrlKey) {
+        ShortenUrl shortenUrl = shortenUrlRepository.findShortenUrlByShortenUrlKey(shortenUrlKey);
+
+        shortenUrl.increaseRedirectCount();
+        shortenUrlRepository.saveShortenUrl(shortenUrl);
+
+        String originalUrl = shortenUrl.getOriginalUrl();
+
+        return originalUrl;
     }
 }

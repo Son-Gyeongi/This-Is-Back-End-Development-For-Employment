@@ -6,8 +6,13 @@ import kr.co.shortenurlservice_practice.presentation.dto.ShortenUrlCreateRequest
 import kr.co.shortenurlservice_practice.presentation.dto.ShortenUrlCreateResponseDto;
 import kr.co.shortenurlservice_practice.presentation.dto.ShortenUrlInformationDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.net.URI;
+import java.net.URISyntaxException;
 
 @RestController
 @RequiredArgsConstructor
@@ -29,8 +34,14 @@ public class ShortenUrlRestController {
     @GetMapping(value = "/{shortenUrlKey}")
     public ResponseEntity<?> redirectShortenUrl(
             @PathVariable String shortenUrlKey
-    ) {
-        return ResponseEntity.ok().body(null);
+    ) throws URISyntaxException {
+        String originalUrl = simpleShortenUrlService.getOriginalUrlByShortenUrlKey(shortenUrlKey);
+
+        URI redirectUri = new URI(originalUrl);
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setLocation(redirectUri);
+
+        return new ResponseEntity<>(httpHeaders, HttpStatus.MOVED_PERMANENTLY);
     }
 
     // 3. 단축 URL 정보 조회 API - /shortenUrl/{shortenUrlKey}, GET

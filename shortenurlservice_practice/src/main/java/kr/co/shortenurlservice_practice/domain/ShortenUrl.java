@@ -30,4 +30,9 @@ public class ShortenUrl {
 
         return shortenUrlKey.toString();
     }
+
+    public void increaseRedirectCount() {
+        // ShortenUrl 의 redirectCount 를 1 증가 시킨다.
+        this.redirectCount = this.redirectCount + 1;
+    }
 }
